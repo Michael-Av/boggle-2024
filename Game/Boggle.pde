@@ -18,20 +18,52 @@ public class Boggle{
     initializeBiggleBoard();
   }
   
-  public boolean dictContains(String word){
-    try {
-      File f = new File(sketchPath("words.txt"));
-      Scanner sc = new Scanner(f);
-      int n = 0;
-      while (n < 100){
-        println(sc.nextLine());
-        n++;
+  public int compareWords(String word1, String word2){
+    while (word1.length() > 0 && word2.length() > 0){
+      if (word1.length() == 0){
+        return -1;
       }
-      return true;
-    } catch (FileNotFoundException f){
-      println("File not found :(" + f);
-      return false;
+      if (word2.length() == 0){
+        return 1;
+      }
+      
+      if (word1.substring(0, 1).compareToIgnoreCase(word2.substring(0, 1)) > 0){
+        return 1;
+      }
+      else if (word1.substring(0, 1).compareToIgnoreCase(word2.substring(0, 1)) < 0){
+        return -1;
+      }
+      
+      word1 = word1.substring(1);
+      word2 = word2.substring(1);
     }
+    return 0;
+  }
+  
+  public boolean dictContains(String word){
+    
+      String[] words = loadStrings(sketchPath("words.txt"));
+      int upperBound = words.length;
+      int lowerBound = 0;
+      
+      while (upperBound - lowerBound > 1){
+        int middle = (upperBound + lowerBound) / 2;
+        
+        int resultValue = compareWords(word, words[middle]);
+        //println(words[middle] + ", " + (int)resultValue + ", middle: " + middle + ", lowerbound: " + lowerBound + ", upperbound: " + upperBound);
+        if (resultValue == 0){
+          return true;
+        }
+        if (resultValue < 0){
+          upperBound = middle;
+        }
+        if (resultValue > 0){
+          lowerBound = middle;
+        }
+      }
+      
+      
+      return false;
   }
     
   
