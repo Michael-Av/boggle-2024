@@ -78,7 +78,7 @@ public class Boggle{
   
   public boolean addWord(String word){
     word = word.toUpperCase();
-    if (checkWord(word) && dictContains(word)) {
+    if (word.length() > 3 && ! (words.contains(word)) && checkWord(word) && dictContains(word)) {
       words.add(word);
       currWord = new Word();
       //System.out.println("word [" + word + "] found");
@@ -202,5 +202,13 @@ public class Boggle{
         biggleBoard[i][j] = board[i - 1][j - 1];
       }
     }
+  }
+  
+  public int endGame(){
+    int sum = 0;
+    for (int i = 0; i < words.size(); i++){
+      sum += words.get(i).length() - 3;
+    }
+    return sum;
   }
 }
