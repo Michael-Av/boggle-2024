@@ -19,7 +19,7 @@ public class Boggle{
   }
   
   public int compareWords(String word1, String word2){
-    while (word1.length() > 0 && word2.length() > 0){
+    while (word1.length() > 0 || word2.length() > 0){
       if (word1.length() == 0){
         return -1;
       }
@@ -50,7 +50,7 @@ public class Boggle{
         int middle = (upperBound + lowerBound) / 2;
         
         int resultValue = compareWords(word, words[middle]);
-        //println(words[middle] + ", " + (int)resultValue + ", middle: " + middle + ", lowerbound: " + lowerBound + ", upperbound: " + upperBound);
+        println(words[middle] + ", " + (int)resultValue + ", middle: " + middle + ", lowerbound: " + lowerBound + ", upperbound: " + upperBound);
         if (resultValue == 0){
           return true;
         }
@@ -81,11 +81,11 @@ public class Boggle{
     if (checkWord(word) && dictContains(word)) {
       words.add(word);
       currWord = new Word();
-      System.out.println("word [" + word + "] found");
+      //System.out.println("word [" + word + "] found");
       return true;
     }
     currWord = new Word();
-    System.out.println("word [" + word + "] not found");
+    //System.out.println("word [" + word + "] not found");
     return false;
   }
   
@@ -116,14 +116,14 @@ public class Boggle{
   public boolean checkWordHelper(String word, ArrayList<int[]> usedCoords, int[] currentCoords) {
     // returns true if all letters in the word have been found in order
     if (word.length() <= 0) {
-      System.out.print("<");
+      //System.out.print("<");
       for (int i = 0; i < usedCoords.size(); i++) {
-        System.out.print(Arrays.toString(usedCoords.get(i)));
+        //System.out.print(Arrays.toString(usedCoords.get(i)));
         if (i < usedCoords.size() - 1) {
-          System.out.print(", ");
+          //System.out.print(", ");
         }
       }
-      System.out.println(">"); // <-- shows the coords of where the word was found
+      //System.out.println(">"); // <-- shows the coords of where the word was found
       return true;
     }
     // checks 8 letters surrounding currentCoords for potential coords of next letter
