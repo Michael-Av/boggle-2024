@@ -14,6 +14,13 @@ public class Display{
     y0 = width / (2.5 * b.boardSize);
   }
   
+  public void displayGame(String word){
+    background(255);
+    drawBoard();
+    displayWords();
+    displayWord(word);
+  }
+  
   public float[] bToPCoords(int row, int col){
     float x0 = width / 12;
     float y0 = height / 12;
@@ -47,15 +54,32 @@ public class Display{
     return null;
   }
   
+  public void displayWords(){
+    ArrayList<String> words = b.words;
+    textSize(20);
+    textAlign(LEFT);
+    int currWord = 0;
+    while (currWord < words.size()){
+      float x = x0 + squareSize * boardSize;
+      float y = y0 - squareSize;
+      while (currWord < words.size() && y < height){
+        text(words.get(currWord), x, y);
+        y += 25;
+        currWord++;
+      }
+      x += 50;
+    }
+    textAlign(CENTER);
+  }
+  
   public void displayWord(String word){
+    textSize(squareSize / 1.5);
     float y = bToPCoords(boardSize - 1, 0)[1];
     y += 2 * squareSize;
     float halfWidth = (boardSize - 1) * squareSize / 2;
     float x = x0 + halfWidth;
     
-    background(255);
     text(word, x, y);
-    drawBoard();
   }
   
   public void drawBoard(){

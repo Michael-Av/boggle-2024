@@ -35,6 +35,7 @@ public class Boggle{
       System.out.println("word [" + word + "] found");
       return true;
     }
+    currWord = new Word();
     System.out.println("word [" + word + "] not found");
     return false;
   }

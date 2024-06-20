@@ -10,7 +10,7 @@ void setup(){
   rectMode(CENTER);
   textAlign(CENTER);
   
-  b = new Boggle(3);
+  b = new Boggle(5);
   d = new Display(b);
   b.setupGame();
   
@@ -22,5 +22,5 @@ void draw(){
 
 void keyReleased(){
   String currWord = b.addLetter(key);
-  d.displayWord(currWord);
+  d.displayGame(currWord);
 }
