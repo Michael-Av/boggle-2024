@@ -59,15 +59,19 @@ public class Display{
     textSize(20);
     textAlign(LEFT);
     int currWord = 0;
+    float x = x0 + squareSize * boardSize;
     while (currWord < words.size()){
-      float x = x0 + squareSize * boardSize;
+      float longestWord = 0;
       float y = y0 - squareSize;
       while (currWord < words.size() && y < height){
+        if (textWidth(words.get(currWord)) > longestWord){
+          longestWord = textWidth(words.get(currWord));
+        }
         text(words.get(currWord), x, y);
         y += 25;
         currWord++;
       }
-      x += 50;
+      x += longestWord + 10;
     }
     textAlign(CENTER);
   }
