@@ -41,6 +41,9 @@ public class Boggle{
   }
   
   public boolean checkWord(String word){
+    if (word.length() == 0) {
+      return false;
+    }
     ArrayList<int[]> firstCoords = new ArrayList<>();
     // finds all coordinates that match the first letter and stores them in firstCoords
     for (int i = 0; i < biggleBoard.length; i++) {
