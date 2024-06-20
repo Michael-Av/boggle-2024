@@ -7,12 +7,16 @@ public class Boggle{
     board = new char[size][size];
   }
   
+  public void setupGame(){
+    initializeBoard();
+  }
+  
   
   public char getRandomLetter(){
     char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
                    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
   
-    float[] letterFreqs = {7.8, 2.0, 4.0, 3.8, 11.0, 1.4, 3.0, 2.3, 8.6, 0.21, 0.97, 5.3, 2.7, 7.2, 6.1, 2.8, 0.19, 7.3, 8.7, 6.7, 3.3, 1.0, 0.91, 0.27};
+    float[] letterFreqs = {7.8, 2.0, 4.0, 3.8, 11.0, 1.4, 3.0, 2.3, 8.6, 0.21, 0.97, 5.3, 2.7, 7.2, 6.1, 2.8, 0.19, 7.3, 8.7, 6.7, 3.3, 1.0, 0.91, 0.27, 1.6, 0.44};
     
     float whichLetter = random(100);
     float currLetter = 0;
@@ -22,7 +26,7 @@ public class Boggle{
       }
       currLetter += letterFreqs[k];
     }
-    return '!';
+    return 'E';
   }
   
   public void initializeBoard(){

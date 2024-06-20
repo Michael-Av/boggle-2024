@@ -2,29 +2,74 @@ public class Display{
   Boggle b;
   char[][] board;
   int boardSize;
+  float squareSize;
+  float x0, y0;
   
   public Display(Boggle b){
     this.b = b;
     board = b.board;
     boardSize = b.boardSize;
+    squareSize = (width / (2.5 * b.boardSize) + height / (2.5 * b.boardSize)) / 2;
+    x0 = width / (2.5 * b.boardSize);
+    y0 = width / (2.5 * b.boardSize);
   }
   
-  public void drawBoard(){
-    float squareSize = (width / 12 + height / 12) / 2;
-    fill(230, 230, 230);
+  public float[] bToPCoords(int row, int col){
+    float x0 = width / 12;
+    float y0 = height / 12;
     
-    int x = 11 * width / 12;
-    stroke(0, 0, 0);
+    float[] coords = {x0 + squareSize * col, y0 + squareSize * row};
+    return coords;
+  }
+  
+  public int[] pToBCoords(float x, float y){
+    
+    float thisY = y0 - squareSize / 2;
+    float nextY = thisY + squareSize;
     
     for (int i = 0; i < boardSize; i++){
-      int y = height / 12;
-      for (int j = 0; j < boardSize; j++){
-        char currChar = board[i][j];
-        square(x, y, squareSize);
-        y += squareSize;
+      float thisX = x0 - squareSize / 2;
+      float nextX = thisX + squareSize;
+      
+      if (y > thisY && y < nextY){
+        for (int j = 0; j < boardSize; j++){
+          if (x > thisX && x < nextX){
+            return (new int[]{i, j});
+          }
+          thisX = nextX;
+          nextX = thisX + squareSize;
+        }
       }
-      x -= squareSize;
+      
+      thisY = nextY;
+      nextY = thisY + squareSize;
     }
+    return null;
+  }
+    
+  
+  public void drawBoard(){
+    fill(230);
+    stroke(0);
+    textSize(squareSize / 1.5);
+    
+    for (int i = 0; i < boardSize; i++){
+      for (int j = 0; j < boardSize; j++){
+        float[] coords = bToPCoords(i, j);
+        rect(coords[0], coords[1], squareSize, squareSize);
+      }
+    }
+    
+    fill(0);
+    
+    for (int i = 0; i < boardSize; i++){
+      for (int j = 0; j < boardSize; j++){
+        float[] coords = bToPCoords(i, j);
+        char currChar = board[i][j];
+        text(currChar + "", coords[0], coords[1] + squareSize / 4);
+      }
+    }
+    
   }
         
   
