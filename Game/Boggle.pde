@@ -18,6 +18,23 @@ public class Boggle{
     initializeBiggleBoard();
   }
   
+  public boolean dictContains(String word){
+    try {
+      File f = new File("words.txt");
+      Scanner sc = new Scanner(f);
+      int n = 0;
+      while (n < 100){
+        println(sc.nextLine());
+        n++;
+      }
+      return true;
+    } catch (FileNotFoundException f){
+      println("File not found :(" + f);
+      return false;
+    }
+  }
+    
+  
   public String addLetter(char letter){
     int result = currWord.addLetter(letter);
     if (result == 3){ // if the word is completed
@@ -29,7 +46,7 @@ public class Boggle{
   
   public boolean addWord(String word){
     word = word.toUpperCase();
-    if (checkWord(word)) {
+    if (checkWord(word) && dictContains(word)) {
       words.add(word);
       currWord = new Word();
       System.out.println("word [" + word + "] found");
