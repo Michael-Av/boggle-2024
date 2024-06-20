@@ -20,7 +20,7 @@ public class Boggle{
   
   public boolean dictContains(String word){
     try {
-      File f = new File("words.txt");
+      File f = new File(sketchPath("words.txt"));
       Scanner sc = new Scanner(f);
       int n = 0;
       while (n < 100){
