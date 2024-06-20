@@ -10,7 +10,7 @@ void setup(){
   rectMode(CENTER);
   textAlign(CENTER);
   
-  b = new Boggle(5);
+  b = new Boggle(3);
   d = new Display(b);
   b.setupGame();
   
