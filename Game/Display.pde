@@ -46,7 +46,17 @@ public class Display{
     }
     return null;
   }
+  
+  public void displayWord(String word){
+    float y = bToPCoords(boardSize - 1, 0)[1];
+    y += 2 * squareSize;
+    float halfWidth = (boardSize - 1) * squareSize / 2;
+    float x = x0 + halfWidth;
     
+    background(255);
+    text(word, x, y);
+    drawBoard();
+  }
   
   public void drawBoard(){
     fill(230);

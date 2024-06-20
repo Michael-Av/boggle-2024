@@ -1,17 +1,43 @@
 public class Boggle{
   char[][] board;
   int boardSize;
+  Word currWord;
+  ArrayList<String> words;
   
   public Boggle(int size){
     boardSize = size;
     board = new char[size][size];
+    currWord = new Word();
+    words = new ArrayList<String>();
   }
   
   public void setupGame(){
     initializeBoard();
   }
   
+  public String addLetter(char letter){
+    int result = currWord.addLetter(letter);
+    if (result == 3){ // if the word is completed
+      addWord(currWord.getWord());
+    }
+    return currWord.getWord();
+  }
+      
   
+  public boolean addWord(String word){
+    if (checkWord(word)){
+      words.add(word);
+      currWord = new Word();
+      return true;
+    }
+    return false;
+  }
+  
+  public boolean checkWord(String word){
+    return true;
+  }
+      
+      
   public char getRandomLetter(){
     char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
                    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};

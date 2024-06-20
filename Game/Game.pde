@@ -1,3 +1,6 @@
+import java.util.*;
+import java.io.*;
+
 Boggle b;
 Display d;
 
@@ -10,8 +13,14 @@ void setup(){
   b = new Boggle(5);
   d = new Display(b);
   b.setupGame();
+  
+  d.drawBoard();
 }
 
 void draw(){
-  d.drawBoard();
+}
+
+void keyReleased(){
+  String currWord = b.addLetter(key);
+  d.displayWord(currWord);
 }
