@@ -9,7 +9,7 @@ void setup(){
   background(255);
   rectMode(CENTER);
   textAlign(CENTER);
-  frameRate(1000);
+  //frameRate(1000);
   
   b = new Boggle(5);
   d = new Display(b);
@@ -22,6 +22,9 @@ void draw(){
   if (frameCount % 60 == 0) {
     b.decrementTime();
     if (b.time == 0) {
+      int finalScore = b.endGame();
+      fill(0);
+      text("Score: " + finalScore, width / 2, height / 2);
       noLoop();
     }
   }
