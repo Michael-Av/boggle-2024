@@ -3,13 +3,13 @@ public class Robot{
   String currWord;
   DictionaryTrie t;
   String[] words;
-  char[][] board
+  char[][] board;
   
   public Robot(int diff, String dict, char[][] board){
     difficulty = diff;
     t = new DictionaryTrie();
     this.board = board;
-    currWord = t.root;
+    currWord = "";
     initializeDictTrie(dict);
   }
   
