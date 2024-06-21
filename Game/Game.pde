@@ -9,6 +9,7 @@ void setup(){
   background(255);
   rectMode(CENTER);
   textAlign(CENTER);
+  frameRate(1000);
   
   b = new Boggle(5);
   d = new Display(b);
@@ -18,9 +19,16 @@ void setup(){
 }
 
 void draw(){
+  if (frameCount % 60 == 0) {
+    b.decrementTime();
+    if (b.time == 0) {
+      noLoop();
+    }
+  }
+  d.displayGame(b.currWord.word);
 }
 
 void keyReleased(){
   String currWord = b.addLetter(key);
-  d.displayGame(currWord);
+  //d.displayGame(currWord);
 }

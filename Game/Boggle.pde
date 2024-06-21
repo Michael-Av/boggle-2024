@@ -4,6 +4,7 @@ public class Boggle{
   int boardSize;
   Word currWord;
   ArrayList<String> words;
+  int time;
   
   public Boggle(int size){
     boardSize = size;
@@ -11,6 +12,7 @@ public class Boggle{
     biggleBoard = new char[size + 2][size + 2];
     currWord = new Word();
     words = new ArrayList<String>();
+    time = 180;
   }
   
   public void setupGame(){
@@ -210,5 +212,9 @@ public class Boggle{
       sum += words.get(i).length() - 3;
     }
     return sum;
+  }
+  
+  public void decrementTime() {
+    time--;
   }
 }

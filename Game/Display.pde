@@ -19,6 +19,7 @@ public class Display{
     drawBoard();
     displayWords();
     displayWord(word);
+    displayTime();
   }
   
   public float[] bToPCoords(int row, int col){
@@ -86,6 +87,25 @@ public class Display{
     text(word, x, y);
   }
   
+  public void displayTime() {
+    textSize(60);
+    text(convertToMMSS(b.time), 1300, 70);
+  }
+  
+  public String convertToMMSS(int time) {
+    int mins = time / 60;
+    int secs = time - time / 60 * 60;
+    String result = mins + ":";
+    if (secs == 0) {
+      result = result + secs + 0;
+    } else if (secs < 10) {
+      result = result + 0 + secs;
+    } else {
+      result += secs;
+    }
+    return result;
+  }
+  
   public void drawBoard(){
     fill(230);
     stroke(0);
@@ -107,9 +127,5 @@ public class Display{
         text(currChar + "", coords[0], coords[1] + squareSize / 4);
       }
     }
-    
   }
-        
-  
-  
 }
