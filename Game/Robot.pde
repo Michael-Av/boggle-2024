@@ -1,23 +1,36 @@
 public class Robot{
   private int difficulty;
-  String dictionary;
+  String currWord;
   DictionaryTrie t;
   String[] words;
+  char[][] board
   
-  public Robot(int diff, String dict){
+  public Robot(int diff, String dict, char[][] board){
     difficulty = diff;
-    dictionary = dict;
     t = new DictionaryTrie();
-    initializeDictTrie();
+    this.board = board;
+    currWord = t.root;
+    initializeDictTrie(dict);
   }
   
-  public void initializeDictTrie(){
+  public void initializeDictTrie(String dictionary){
     String[] words = loadStrings(dictionary);
     
     for (String w: words){
       t.addWord(w);
     }
   }
+  
+  public int[] findFirstLetterCoords(){
+    int row = (int)(Math.random() * 5);
+    int col = (int)(Math.random() * 5);
+    return new int[]{row, col};
+  }
+  
+  public boolean buildWord(){
+    return true;
+  }
+    
   
   public ArrayList<int[]> findPotentialNextCoords(int[] currLocation){
     ArrayList<int[]> potentialNextCoords = new ArrayList<>();
