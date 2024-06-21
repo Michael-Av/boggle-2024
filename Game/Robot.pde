@@ -36,8 +36,8 @@ public class Robot{
     int c = (int) (Math.random() * 5) + 1;
     int[] currLetter = {r, c};
     //System.out.println("starting with letter [" + biggleBoard[r][c] + "] at coords (" + r + ", " + c + ")");
+    ArrayList<int[]> usedCoords = new ArrayList<>();
     while (! t.isWord(currWord) || currWord.length() < 4) {
-      ArrayList<int[]> usedCoords = new ArrayList<>();
       usedCoords.add(currLetter);
       ArrayList<int[]> potentialNextCoords = findPotentialNextCoords(currLetter, usedCoords);
       //System.out.println("currWord: " + currWord);
