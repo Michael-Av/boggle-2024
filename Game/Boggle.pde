@@ -14,7 +14,7 @@ public class Boggle{
     currWord = new Word();
     words = new ArrayList<String>();
     robots = new Robot[numRobots];
-    time = 10;
+    time = 20;
   }
   
   public void setupGame(){
@@ -175,9 +175,11 @@ public class Boggle{
     return robotWords;
   }
   
-  public void buildRobotWords(){
+  public void buildRobotWords(int times){
     for (Robot r: robots){
-      r.buildWord();
+      for (int i = 0; i < times; i++){
+        r.buildWord();
+      }
     }
   }
       

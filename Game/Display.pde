@@ -4,6 +4,7 @@ public class Display{
   int boardSize;
   float squareSize;
   float x0, y0;
+  int textSize;
   
   public Display(Boggle b){
     this.b = b;
@@ -12,6 +13,7 @@ public class Display{
     squareSize = (width / (2.5 * b.boardSize) + height / (2.5 * b.boardSize)) / 2;
     x0 = width / (2.5 * b.boardSize);
     y0 = width / (2.5 * b.boardSize);
+    textSize = 20;
   }
   
   public float displayGame(String word){
@@ -58,25 +60,32 @@ public class Display{
   
   public float displayWords(){
     ArrayList<String> words = b.words;
-    textSize(20);
+    textSize(textSize);
     textAlign(LEFT);
     int currWord = 0;
     float x = x0 + squareSize * boardSize;
     while (currWord < words.size()){
       float longestWord = 0;
-      float y = y0 - squareSize;
+      float y = textSize+5;//y0 - squareSize;
       while (currWord < words.size() && y < height){
         if (textWidth(words.get(currWord)) > longestWord){
           longestWord = textWidth(words.get(currWord));
         }
-        text(words.get(currWord), x, y);
-        y += 25;
+        displayText(words.get(currWord), true, x, y, textSize);
+        y += (textSize+5);
         currWord++;
       }
       x += longestWord + 10;
     }
     textAlign(CENTER);
     return x;
+  }
+  
+  public void displayText(String display, boolean toStrikeThrough, float xStart, float yStart, int fontSize){
+    text(display,xStart,yStart);  
+    if (toStrikeThrough) {
+      line(xStart-3,yStart-fontSize/2+fontSize/8,xStart+textWidth(display)+3,yStart-fontSize/2+fontSize/8);
+    }
   }
   
   public void displayWord(String word){
@@ -132,22 +141,23 @@ public class Display{
   }
   
   public void displayRobotWords(String[][] robotsWords, float xToStart){
-    textSize(20);
+    textSize(textSize);
     textAlign(LEFT);
     fill(255, 0, 0);
     float x = xToStart;
     
     for (String[] words: robotsWords){
       int currWord = 0;
+      x += 10;
       while (currWord < words.length){
         float longestWord = 0;
-        float y = y0 - squareSize;
+        float y = textSize+5;//y0 - squareSize;
         while (currWord < words.length && y < height){
           if (textWidth(words[currWord]) > longestWord){
             longestWord = textWidth(words[currWord]);
           }
           text(words[currWord], x, y);
-          y += 25;
+          y += (textSize+5);
           currWord++;
         }
         x += longestWord + 10;

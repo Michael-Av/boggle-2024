@@ -5,13 +5,14 @@ Boggle b;
 Display d;
 
 void setup(){
+  printArray(PFont.list());
   size(1400, 800);
   background(255);
   rectMode(CENTER);
   textAlign(CENTER);
   //frameRate(1000);
   
-  b = new Boggle(5, 1);
+  b = new Boggle(5, 2);
   d = new Display(b);
   b.setupGame();
   
@@ -20,7 +21,7 @@ void setup(){
 
 void draw(){
   if (frameCount % 60 == 0) {
-    b.buildRobotWords(); // robot is making its words
+    b.buildRobotWords(2); // robot is making its words
     b.decrementTime();
     if (b.time == 0) {
       int[] finalScores = b.endGame();
