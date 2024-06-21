@@ -167,11 +167,12 @@ public class Boggle{
     return false;
   }
   
-  public String[][] getRobotWords(){
-    String[][] robotWords = new String[robots.length][];
+  public ArrayList<ArrayList<String>> getRobotWords(){
+    ArrayList<ArrayList<String>> robotWords = new ArrayList<ArrayList<String>>();
     for (int i = 0; i < robots.length; i++){
       ArrayList<String> arrayListWords = robots[i].words;
-      robotWords[i] = (String[])arrayListWords.toArray(new String[1]);
+      printArray(arrayListWords);
+      robotWords.add(arrayListWords);
     }
     return robotWords;
   }
@@ -232,10 +233,10 @@ public class Boggle{
     allScores[0] = sumPlayer;
     
     for (int i = 0; i < robots.length; i++){
-      String[] rWords = robots[i].words.toArray(new String[1]);
+      ArrayList<String> rWords = robots[i].words;
       int sumThisRobot = 0;
-      for (int j = 0; j < rWords.length; j++){
-        sumThisRobot += rWords[j].length() - 3;
+      for (int j = 0; j < rWords.size(); j++){
+        sumThisRobot += rWords.get(j).length() - 3;
       }
       allScores[i + 1] = sumThisRobot;
     }

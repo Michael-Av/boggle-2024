@@ -140,23 +140,24 @@ public class Display{
     }
   }
   
-  public void displayRobotWords(String[][] robotsWords, float xToStart){
+  public void displayRobotWords(ArrayList<ArrayList<String>> robotsWords, float xToStart){
     textSize(textSize);
     textAlign(LEFT);
     fill(255, 0, 0);
     float x = xToStart;
     
-    for (String[] words: robotsWords){
+    for (int i = 0; i < robotsWords.size(); i++){
+      ArrayList<String> words = robotsWords.get(i);
       int currWord = 0;
       x += 10;
-      while (currWord < words.length){
+      while (currWord < words.size()){
         float longestWord = 0;
         float y = textSize+5;//y0 - squareSize;
-        while (currWord < words.length && y < height){
-          if (textWidth(words[currWord]) > longestWord){
-            longestWord = textWidth(words[currWord]);
+        while (currWord < words.size() && y < height){
+          if (textWidth(words.get(currWord)) > longestWord){
+            longestWord = textWidth(words.get(currWord));
           }
-          displayText(words[currWord], true, x, y, textSize);
+          displayText(words.get(currWord), true, x, y, textSize);
           y += (textSize+5);
           currWord++;
         }
