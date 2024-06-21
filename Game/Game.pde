@@ -24,7 +24,7 @@ void draw(){
     b.decrementTime();
     if (b.time == 0) {
       int[] finalScores = b.endGame();
-      int robotXToStart = d.displayGame("");
+      float robotXToStart = d.displayGame("");
       d.displayRobotWords(b.getRobotWords(), robotXToStart);
       d.displayScores(finalScores);
       noLoop();

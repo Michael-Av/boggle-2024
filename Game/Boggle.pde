@@ -14,7 +14,7 @@ public class Boggle{
     currWord = new Word();
     words = new ArrayList<String>();
     robots = new Robot[numRobots];
-    time = 180;
+    time = 10;
   }
   
   public void setupGame(){
@@ -169,7 +169,8 @@ public class Boggle{
   public String[][] getRobotWords(){
     String[][] robotWords = new String[robots.length][];
     for (int i = 0; i < robots.length; i++){
-      robotWords[i] = robots[i].words;
+      ArrayList<String> arrayListWords = robots[i].words;
+      robotWords[i] = (String[])arrayListWords.toArray(new String[1]);
     }
     return robotWords;
   }
@@ -223,10 +224,10 @@ public class Boggle{
     allScores[0] = sumPlayer;
     
     for (int i = 0; i < robots.length; i++){
-      String[] rWords = robots[i].words;
+      String[] rWords = robots[i].words.toArray(new String[1]);
       int sumThisRobot = 0;
-      for (int j = 0; j < rWords.size(); j++){
-        sumThisRobot += rWords.get(i).length() - 3;
+      for (int j = 0; j < rWords.length; j++){
+        sumThisRobot += rWords[j].length() - 3;
       }
       allScores[i + 1] = sumThisRobot;
     }

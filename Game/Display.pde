@@ -14,11 +14,11 @@ public class Display{
     y0 = width / (2.5 * b.boardSize);
   }
   
-  public int displayGame(String word){
+  public float displayGame(String word){
     background(255);
     drawBoard();
-    displayWords();
-    int x = displayWord(word);
+    displayWord(word);
+    float x = displayWords();
     displayTime();
     return x;
   }
@@ -56,7 +56,7 @@ public class Display{
     return null;
   }
   
-  public int displayWords(){
+  public float displayWords(){
     ArrayList<String> words = b.words;
     textSize(20);
     textAlign(LEFT);
@@ -131,22 +131,22 @@ public class Display{
     }
   }
   
-  public void displayRobotWords(String[][] robotsWords, int xToStart){
+  public void displayRobotWords(String[][] robotsWords, float xToStart){
     textSize(20);
     textAlign(LEFT);
-    color(255, 0, 0);
+    fill(255, 0, 0);
     float x = xToStart;
     
     for (String[] words: robotsWords){
       int currWord = 0;
-      while (currWord < words.size()){
+      while (currWord < words.length){
         float longestWord = 0;
         float y = y0 - squareSize;
-        while (currWord < words.size() && y < height){
-          if (textWidth(words.get(currWord)) > longestWord){
-            longestWord = textWidth(words.get(currWord));
+        while (currWord < words.length && y < height){
+          if (textWidth(words[currWord]) > longestWord){
+            longestWord = textWidth(words[currWord]);
           }
-          text(words.get(currWord), x, y);
+          text(words[currWord], x, y);
           y += 25;
           currWord++;
         }
@@ -154,9 +154,11 @@ public class Display{
       }
     }
     textAlign(CENTER);
+    fill(0);
   }
   
   public void displayScores(int[] scores){
+    textAlign(LEFT);
     textSize(30);
     float y = y0 + squareSize * boardSize;
     
@@ -166,5 +168,6 @@ public class Display{
       int score = scores[i];
       text("Robot " + i + "'s score: " + score, x0, y);
     }
+    textAlign(CENTER);
   }
 }
