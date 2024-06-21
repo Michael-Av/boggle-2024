@@ -119,12 +119,12 @@ public class Boggle{
     // returns true if all letters in the word have been found in order
     if (word.length() <= 0) {
       //System.out.print("<");
-      for (int i = 0; i < usedCoords.size(); i++) {
+      //for (int i = 0; i < usedCoords.size(); i++) {
         //System.out.print(Arrays.toString(usedCoords.get(i)));
-        if (i < usedCoords.size() - 1) {
+        //if (i < usedCoords.size() - 1) {
           //System.out.print(", ");
-        }
-      }
+        //}
+      //}
       //System.out.println(">"); // <-- shows the coords of where the word was found
       return true;
     }

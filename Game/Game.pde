@@ -19,16 +19,18 @@ void setup(){
 }
 
 void draw(){
+  
   if (frameCount % 60 == 0) {
     b.decrementTime();
     if (b.time == 0) {
       int finalScore = b.endGame();
-      fill(0);
+      d.displayGame("");
       text("Score: " + finalScore, width / 2, height / 2);
       noLoop();
     }
   }
-  d.displayGame(b.currWord.word);
+  if (b.time != 0)
+    d.displayGame(b.currWord.word);
 }
 
 void keyReleased(){
