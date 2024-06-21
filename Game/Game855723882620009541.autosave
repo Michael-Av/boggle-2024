@@ -20,18 +20,18 @@ void setup(){
 
 void draw(){
   if (frameCount % 60 == 0) {
-    b.buildRobotWords(20); // robot is making its words
+    b.buildRobotWords(3); // robot is making its words
     b.decrementTime();
     if (b.time == 0) {
       int[] finalScores = b.endGame();
-      float robotXToStart = d.displayGame("", true);
+      float robotXToStart = d.displayGame("");
       d.displayRobotWords(b.getRobotWords(), robotXToStart);
       d.displayScores(finalScores);
       noLoop();
     }
   }
   if (b.time != 0)
-    d.displayGame(b.currWord.word, false);
+    d.displayGame(b.currWord.word);
 }
 
 void keyReleased(){

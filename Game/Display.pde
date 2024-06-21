@@ -16,11 +16,11 @@ public class Display{
     textSize = 20;
   }
   
-  public float displayGame(String word){
+  public float displayGame(String word, boolean isGameOver){
     background(255);
     drawBoard();
     displayWord(word);
-    float x = displayWords();
+    float x = displayWords(isGameOver);
     displayTime();
     return x;
   }
@@ -58,12 +58,14 @@ public class Display{
     return null;
   }
   
-  public float displayWords(){
+  public float displayWords(boolean isGameOver){
     ArrayList<String> words = b.words;
     textSize(textSize);
     textAlign(LEFT);
+    boolean strikeThrough = false;
     int currWord = 0;
     float x = x0 + squareSize * boardSize;
+    
     while (currWord < words.size()){
       float longestWord = 0;
       float y = textSize+5;//y0 - squareSize;
@@ -71,7 +73,9 @@ public class Display{
         if (textWidth(words.get(currWord)) > longestWord){
           longestWord = textWidth(words.get(currWord));
         }
-        displayText(words.get(currWord), true, x, y, textSize);
+        if (isGameOver)
+          strikeThrough = ! b.uniqueWords[currWord];
+        displayText(words.get(currWord), strikeThrough, x, y, textSize);
         y += (textSize+5);
         currWord++;
       }
@@ -145,6 +149,7 @@ public class Display{
     textAlign(LEFT);
     fill(255, 0, 0);
     float x = xToStart;
+    boolean strikeThrough = false;
     
     for (int i = 0; i < robotsWords.size(); i++){
       ArrayList<String> words = robotsWords.get(i);
@@ -157,7 +162,8 @@ public class Display{
           if (textWidth(words.get(currWord)) > longestWord){
             longestWord = textWidth(words.get(currWord));
           }
-          displayText(words.get(currWord), true, x, y, textSize);
+          strikeThrough = ! b.robots[i].uniqueWords[currWord];
+          displayText(words.get(currWord), strikeThrough, x, y, textSize);
           y += (textSize+5);
           currWord++;
         }

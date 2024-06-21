@@ -15,7 +15,7 @@ public class Boggle{
     currWord = new Word();
     words = new ArrayList<String>();
     robots = new Robot[numRobots];
-    time = 5;
+    time = 180;
   }
   
   public void setupGame(){
@@ -220,6 +220,57 @@ public class Boggle{
   }
   
   public void getUniqueWords(){
+    // Initializing boolean arrays
+    uniqueWords = new boolean[words.size()];
+    for (int i = 0; i < uniqueWords.length; i++){
+      uniqueWords[i] = true;
+    }
+    for (Robot r: robots){
+      r.uniqueWords = new boolean[r.words.size()];
+      for (int i = 0; i < r.uniqueWords.length; i++){
+        r.uniqueWords[i] = true;
+      }
+    }
+    
+    for (int i = 0; i < words.size(); i++){
+      String currWord = words.get(i);
+      for (Robot r: robots){
+        for (int j = 0; j < r.words.size(); j++){
+          if (currWord.equals(r.words.get(j))){
+            uniqueWords[i] = false;
+            r.uniqueWords[j] = false;
+            break;
+          }
+        }
+      }
+    }
+    
+    for (Robot r: robots){
+      for (int i = 0; i < r.words.size(); i++){
+        String currWord = r.words.get(i);
+        System.out.println("AAAAAAA " + words.size());
+        for (int j = 0; j < words.size(); j++){
+          if (currWord.equals(words.get(j))){
+            r.uniqueWords[i] = false;
+            uniqueWords[j] = false;
+            break;
+          }
+        }
+        for (Robot r2: robots){
+          if (r == r2){
+            continue;
+          }
+          
+          for (int j = 0; j < r2.words.size(); j++){
+            if (currWord.equals(r2.words.get(j))){
+              r.uniqueWords[i] = false;
+              r2.uniqueWords[j] = false;
+              break;
+            }
+          }
+        }
+      }
+    }
   }
   
   public int[] endGame(){
@@ -228,7 +279,9 @@ public class Boggle{
     int[] allScores = new int[robots.length + 1]; // for player plus robots
     int sumPlayer = 0;
     for (int i = 0; i < words.size(); i++){
-      sumPlayer += words.get(i).length() - 3;
+      if (uniqueWords[i] == true){
+        sumPlayer += words.get(i).length() - 3;
+      }
     }
     allScores[0] = sumPlayer;
     
@@ -236,7 +289,9 @@ public class Boggle{
       ArrayList<String> rWords = robots[i].words;
       int sumThisRobot = 0;
       for (int j = 0; j < rWords.size(); j++){
-        sumThisRobot += rWords.get(j).length() - 3;
+        if (robots[i].uniqueWords[j] == true){
+          sumThisRobot += rWords.get(j).length() - 3;
+        }
       }
       allScores[i + 1] = sumThisRobot;
     }
