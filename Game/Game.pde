@@ -5,7 +5,6 @@ Boggle b;
 Display d;
 
 void setup(){
-  printArray(PFont.list());
   size(1400, 800);
   background(255);
   rectMode(CENTER);
