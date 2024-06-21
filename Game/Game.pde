@@ -19,7 +19,6 @@ void setup(){
 }
 
 void draw(){
-  
   if (frameCount % 60 == 0) {
     b.decrementTime();
     if (b.time == 0) {
