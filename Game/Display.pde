@@ -156,7 +156,7 @@ public class Display{
           if (textWidth(words[currWord]) > longestWord){
             longestWord = textWidth(words[currWord]);
           }
-          text(words[currWord], x, y);
+          displayText(words[currWord], true, x, y, textSize);
           y += (textSize+5);
           currWord++;
         }

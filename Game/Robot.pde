@@ -5,6 +5,7 @@ public class Robot{
   ArrayList<String> words;
   char[][] board;
   char[][] biggleBoard;
+  boolean[] uniqueWords;
   
   public Robot(int diff, String dict, char[][] board, char[][] biggleBoard){
     difficulty = diff;

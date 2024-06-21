@@ -6,6 +6,7 @@ public class Boggle{
   ArrayList<String> words;
   int time;
   Robot[] robots;
+  boolean[] uniqueWords;
   
   public Boggle(int size, int numRobots){
     boardSize = size;
@@ -217,7 +218,12 @@ public class Boggle{
     }
   }
   
+  public void getUniqueWords(){
+  }
+  
   public int[] endGame(){
+    getUniqueWords();
+    
     int[] allScores = new int[robots.length + 1]; // for player plus robots
     int sumPlayer = 0;
     for (int i = 0; i < words.size(); i++){
