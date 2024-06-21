@@ -20,7 +20,7 @@ void setup(){
 
 void draw(){
   if (frameCount % 30 == 0) {
-    b.buildRobotWords(20); // robot is making its words
+    b.buildRobotWords(100); // robot is making its words
     b.decrementTime();
     if (b.time == 0) {
       int[] finalScores = b.endGame();

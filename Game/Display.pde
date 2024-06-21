@@ -66,9 +66,10 @@ public class Display{
     int currWord = 0;
     float x = x0 + squareSize * boardSize;
     
+    text("Player 1", x, textSize + 5);
     while (currWord < words.size()){
       float longestWord = 0;
-      float y = textSize+5;//y0 - squareSize;
+      float y = 2 * textSize+20;//y0 - squareSize;
       while (currWord < words.size() && y < height){
         if (textWidth(words.get(currWord)) > longestWord){
           longestWord = textWidth(words.get(currWord));
@@ -155,9 +156,11 @@ public class Display{
       ArrayList<String> words = robotsWords.get(i);
       int currWord = 0;
       x += 10;
+      
+      text("Robot " + i, x, textSize + 5);
       while (currWord < words.size()){
         float longestWord = 0;
-        float y = textSize+5;//y0 - squareSize;
+        float y = 2 * textSize+20;//y0 - squareSize;
         while (currWord < words.size() && y < height){
           if (textWidth(words.get(currWord)) > longestWord){
             longestWord = textWidth(words.get(currWord));

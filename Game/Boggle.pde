@@ -15,7 +15,7 @@ public class Boggle{
     currWord = new Word();
     words = new ArrayList<String>();
     robots = new Robot[numRobots];
-    time = 180;
+    time = 10;
   }
   
   public void setupGame(){
@@ -171,7 +171,7 @@ public class Boggle{
     ArrayList<ArrayList<String>> robotWords = new ArrayList<ArrayList<String>>();
     for (int i = 0; i < robots.length; i++){
       ArrayList<String> arrayListWords = robots[i].words;
-      printArray(arrayListWords);
+      //printArray(arrayListWords);
       robotWords.add(arrayListWords);
     }
     return robotWords;
@@ -248,7 +248,7 @@ public class Boggle{
     for (Robot r: robots){
       for (int i = 0; i < r.words.size(); i++){
         String currWord = r.words.get(i);
-        System.out.println("AAAAAAA " + words.size());
+        //System.out.println("AAAAAAA " + words.size());
         for (int j = 0; j < words.size(); j++){
           if (currWord.equals(words.get(j))){
             r.uniqueWords[i] = false;
