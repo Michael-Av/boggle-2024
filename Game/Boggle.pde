@@ -52,7 +52,7 @@ public class Boggle{
         int middle = (upperBound + lowerBound) / 2;
         
         int resultValue = compareWords(word, words[middle]);
-        println(words[middle] + ", " + (int)resultValue + ", middle: " + middle + ", lowerbound: " + lowerBound + ", upperbound: " + upperBound);
+       // println(words[middle] + ", " + (int)resultValue + ", middle: " + middle + ", lowerbound: " + lowerBound + ", upperbound: " + upperBound);
         if (resultValue == 0){
           return true;
         }
@@ -161,15 +161,11 @@ public class Boggle{
   
   // checks if int[] coords is in ArrayList<int[]> usedCoords
   public boolean coordAlreadyUsed(int[] coords, ArrayList<int[]> usedCoords) {
-    //System.out.println("coords being tested: " + Arrays.toString(coords));
     for (int i = 0; i < usedCoords.size(); i++) {
-      //System.out.println("coords being tested against: " + Arrays.toString(usedCoords.get(i)));
       if (coords[0] == usedCoords.get(i)[0] && coords[1] == usedCoords.get(i)[1]) {
-        //System.out.println("true returned");
         return true;
       }
     }
-    //System.out.println("false returned");
     return false;
   }
       
