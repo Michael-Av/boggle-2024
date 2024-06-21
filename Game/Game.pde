@@ -11,7 +11,7 @@ void setup(){
   textAlign(CENTER);
   //frameRate(1000);
   
-  b = new Boggle(5);
+  b = new Boggle(5, 1);
   d = new Display(b);
   b.setupGame();
   
@@ -21,11 +21,13 @@ void setup(){
 void draw(){
   
   if (frameCount % 60 == 0) {
+    b.buildRobotWords(); // robot is making its words
     b.decrementTime();
     if (b.time == 0) {
-      int finalScore = b.endGame();
-      d.displayGame("");
-      text("Score: " + finalScore, width / 2, height / 2);
+      int[] finalScores = b.endGame();
+      int robotXToStart = d.displayGame("");
+      d.displayRobotWords(b.getRobotWords(), robotXToStart);
+      d.displayScores(finalScores);
       noLoop();
     }
   }

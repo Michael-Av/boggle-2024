@@ -5,19 +5,24 @@ public class Boggle{
   Word currWord;
   ArrayList<String> words;
   int time;
+  Robot[] robots;
   
-  public Boggle(int size){
+  public Boggle(int size, int numRobots){
     boardSize = size;
     board = new char[size][size];
     biggleBoard = new char[size + 2][size + 2];
     currWord = new Word();
     words = new ArrayList<String>();
+    robots = new Robot[numRobots];
     time = 180;
   }
   
   public void setupGame(){
     initializeBoard();
     initializeBiggleBoard();
+    for (int i = 0; i < robots.length; i++){
+      robots[i] = new Robot(1, "words.txt", board, biggleBoard);
+    }
   }
   
   public int compareWords(String word1, String word2){
@@ -118,14 +123,6 @@ public class Boggle{
   public boolean checkWordHelper(String word, ArrayList<int[]> usedCoords, int[] currentCoords) {
     // returns true if all letters in the word have been found in order
     if (word.length() <= 0) {
-      //System.out.print("<");
-      //for (int i = 0; i < usedCoords.size(); i++) {
-        //System.out.print(Arrays.toString(usedCoords.get(i)));
-        //if (i < usedCoords.size() - 1) {
-          //System.out.print(", ");
-        //}
-      //}
-      //System.out.println(">"); // <-- shows the coords of where the word was found
       return true;
     }
     // checks 8 letters surrounding currentCoords for potential coords of next letter
@@ -168,6 +165,21 @@ public class Boggle{
     }
     return false;
   }
+  
+  public String[][] getRobotWords(){
+    String[][] robotWords = new String[robots.length][];
+    for (int i = 0; i < robots.length; i++){
+      robotWords[i] = robots[i].words;
+    }
+    return robotWords;
+  }
+  
+  public void buildRobotWords(){
+    for (Robot r: robots){
+      r.buildWord();
+    }
+  }
+      
       
   public char getRandomLetter(){
     char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -202,12 +214,23 @@ public class Boggle{
     }
   }
   
-  public int endGame(){
-    int sum = 0;
+  public int[] endGame(){
+    int[] allScores = new int[robots.length + 1]; // for player plus robots
+    int sumPlayer = 0;
     for (int i = 0; i < words.size(); i++){
-      sum += words.get(i).length() - 3;
+      sumPlayer += words.get(i).length() - 3;
     }
-    return sum;
+    allScores[0] = sumPlayer;
+    
+    for (int i = 0; i < robots.length; i++){
+      String[] rWords = robots[i].words;
+      int sumThisRobot = 0;
+      for (int j = 0; j < rWords.size(); j++){
+        sumThisRobot += rWords.get(i).length() - 3;
+      }
+      allScores[i + 1] = sumThisRobot;
+    }
+    return allScores;
   }
   
   public void decrementTime() {
