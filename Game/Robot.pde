@@ -26,54 +26,36 @@ public class Robot{
   }
   
   public int[] findFirstLetterCoords(){
-    int row = (int)(Math.random() * 5);
-    int col = (int)(Math.random() * 5);
+    int row = (int)(Math.random() * board.length) + 1;
+    int col = (int)(Math.random() * board.length) + 1;
     return new int[]{row, col};
   }
   
   public void buildWord(){
-    currWord = "";
-    int r = (int) (Math.random() * 5) + 1;
-    int c = (int) (Math.random() * 5) + 1;
-    int[] currLetter = {r, c};
-    //System.out.println("starting with letter [" + biggleBoard[r][c] + "] at coords (" + r + ", " + c + ")");
+    int[] currLetter = findFirstLetterCoords();
     ArrayList<int[]> usedCoords = new ArrayList<>();
     while (! t.isWord(currWord) || currWord.length() < 4) {
       usedCoords.add(currLetter);
       ArrayList<int[]> potentialNextCoords = findPotentialNextCoords(currLetter, usedCoords);
-      //System.out.println("currWord: " + currWord);
       ArrayList<Character> potentialNextCharacters = t.getNextLetterOptions(currWord);
       boolean nextLetterFound = false;
-      /*for (int[] coords : potentialNextCoords) {
-        System.out.println("potential next coords: (" + coords[0] + ", " + coords[1] + ")");
-      }
-      for (char ch : potentialNextCharacters) {
-        System.out.print(ch + ", ");
-      }
-      System.out.println();*/
       while (potentialNextCoords.size() > 0) {
         int nextLetterIndex = (int) (Math.random() * potentialNextCoords.size());
         int[] nextLetterCoords = potentialNextCoords.get(nextLetterIndex);
         char nextLetter = biggleBoard[nextLetterCoords[0]][nextLetterCoords[1]];
-        //System.out.println("chosen potential next Letter [" + nextLetter + "] at coords (" + nextLetterCoords[0] + ", " + nextLetterCoords[1] + ")");
-        //System.out.println("charInList(nextLetter, potentialNextCharacters): " + charInList(nextLetter, potentialNextCharacters));
         if (charInList(nextLetter, potentialNextCharacters)) {
           currLetter = nextLetterCoords;
           nextLetterFound = true;
           currWord += biggleBoard[currLetter[0]][currLetter[1]];
-          //System.out.println("next letter [" + biggleBoard[currLetter[0]][currLetter[1]] + "] found at (" + currLetter[0] + ", " + currLetter[1] + ")");
-          //System.out.println("currWord: " + currWord);
           break;
         } else {
           potentialNextCoords.remove(nextLetterIndex);
-          //System.out.println("(" + nextLetterCoords[0] + ", " + nextLetterCoords[1] + ") removed from potentialNextCoords");
         }
       }
       if (! nextLetterFound) {
         return;
       }
     }
-    //System.out.println("returning currWord");
     if (! words.contains(currWord)) {
       words.add(currWord);
     }
