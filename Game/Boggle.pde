@@ -15,7 +15,7 @@ public class Boggle{
     currWord = new Word();
     words = new ArrayList<String>();
     robots = new Robot[numRobots];
-    time = 5;
+    time = 50;
   }
   
   public void setupGame(){

@@ -9,7 +9,7 @@ void setup(){
   background(255);
   rectMode(CENTER);
   textAlign(CENTER);
-  //frameRate(1000);
+  frameRate(30);
   
   b = new Boggle(5, 2);
   d = new Display(b);
@@ -19,7 +19,7 @@ void setup(){
 }
 
 void draw(){
-  if (frameCount % 60 == 0) {
+  if (frameCount % 30 == 0) {
     b.buildRobotWords(20); // robot is making its words
     b.decrementTime();
     if (b.time == 0) {
