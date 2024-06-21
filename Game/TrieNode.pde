@@ -54,11 +54,11 @@ public class TrieNode {
   
   
   public int letterToArrayPosition(char letter) {
-    return letter - 'a';
+    return letter - 'A';
   }
   
   public char arrayPositionToLetter(int position) {
-    return (char) (position + 'a');
+    return (char) (position + 'A');
   }
   
   
