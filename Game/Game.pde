@@ -12,7 +12,7 @@ void setup(){
   textAlign(CENTER);
   //frameRate(1000);
   
-  b = new Boggle(5, 2);
+  b = new Boggle(3, 2);
   d = new Display(b);
   b.setupGame();
   
