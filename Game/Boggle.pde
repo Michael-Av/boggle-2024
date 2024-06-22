@@ -15,14 +15,14 @@ public class Boggle{
     currWord = new Word();
     words = new ArrayList<String>();
     robots = new Robot[numRobots];
-    time = 10;
+    time = 180;
   }
   
   public void setupGame(){
     initializeBoard();
     initializeBiggleBoard();
     for (int i = 0; i < robots.length; i++){
-      robots[i] = new Robot(1, "words.txt", board, biggleBoard);
+      robots[i] = new Robot(1, "words_scrabble.txt", board, biggleBoard);
     }
   }
   

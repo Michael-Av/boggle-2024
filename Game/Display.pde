@@ -68,7 +68,7 @@ public class Display{
     
     text("Player 1", x, textSize + 5);
     while (currWord < words.size()){
-      float longestWord = 0;
+      float longestWord = textWidth("Player 1");
       float y = 2 * textSize+20;//y0 - squareSize;
       while (currWord < words.size() && y < height){
         if (textWidth(words.get(currWord)) > longestWord){
@@ -157,9 +157,9 @@ public class Display{
       int currWord = 0;
       x += 10;
       
-      text("Robot " + i, x, textSize + 5);
+      text("Robot " + (i + 1), x, textSize + 5);
       while (currWord < words.size()){
-        float longestWord = 0;
+        float longestWord = textWidth("Robot " + (i + 1));
         float y = 2 * textSize+20;//y0 - squareSize;
         while (currWord < words.size() && y < height){
           if (textWidth(words.get(currWord)) > longestWord){
