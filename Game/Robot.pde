@@ -36,7 +36,7 @@ public class Robot{
     int[] currLetter = findFirstLetterCoords();
     currWord += biggleBoard[currLetter[0]][currLetter[1]];
     ArrayList<int[]> usedCoords = new ArrayList<>();
-    while (! t.isWord(currWord) || currWord.length() < 4) {
+    while (t.getNextLetterOptions(currWord).size() > 0 || currWord.length() < 4) {
       //System.out.println("currWord: " + currWord);
       usedCoords.add(currLetter);
       ArrayList<int[]> potentialNextCoords = findPotentialNextCoords(currLetter, usedCoords);
@@ -55,12 +55,12 @@ public class Robot{
           potentialNextCoords.remove(nextLetterIndex);
         }
       }
+      if (currWord.length() >= 4 && t.isWord(currWord) && ! words.contains(currWord)) {
+        words.add(currWord);
+      }
       if (! nextLetterFound) {
         return;
       }
-    }
-    if (! words.contains(currWord)) {
-      words.add(currWord);
     }
   }
   

@@ -7,25 +7,38 @@ public class Boggle{
   int time;
   Robot[] robots;
   boolean[] uniqueWords;
+  DictionaryTrie t;
   
-  public Boggle(int size, int numRobots){
+  public Boggle(int size, int numRobots, int time, String pDict, String rDict){
     boardSize = size;
     board = new char[size][size];
     biggleBoard = new char[size + 2][size + 2];
     currWord = new Word();
     words = new ArrayList<String>();
     robots = new Robot[numRobots];
-    time = 180;
+    this.time = time;
+    t = new DictionaryTrie();
+    setupGame(pDict, rDict);
   }
   
-  public void setupGame(){
+  public void setupGame(String pDict, String rDict){
     initializeBoard();
     initializeBiggleBoard();
     for (int i = 0; i < robots.length; i++){
-      robots[i] = new Robot(1, "words_scrabble.txt", board, biggleBoard);
+      robots[i] = new Robot(1, rDict, board, biggleBoard);
+    }
+    initializeDictTrie(pDict);
+  }
+  
+  public void initializeDictTrie(String dictionary){
+    String[] words = loadStrings(dictionary);
+    
+    for (String w: words){
+      t.addWord(w.toUpperCase());
     }
   }
   
+  /*
   public int compareWords(String word1, String word2){
     while (word1.length() > 0 || word2.length() > 0){
       if (word1.length() == 0){
@@ -39,7 +52,7 @@ public class Boggle{
         return 1;
       }
       else if (word1.substring(0, 1).compareToIgnoreCase(word2.substring(0, 1)) < 0){
-        return -1;
+        return -1;  
       }
       
       word1 = word1.substring(1);
@@ -73,7 +86,7 @@ public class Boggle{
       
       return false;
   }
-    
+  */  
   
   public String addLetter(char letter){
     int result = currWord.addLetter(letter);
@@ -86,7 +99,11 @@ public class Boggle{
   
   public boolean addWord(String word){
     word = word.toUpperCase();
-    if (word.length() > 3 && ! (words.contains(word)) && checkWord(word) && dictContains(word)) {
+    if (word.length() > 3 &&
+    ! (words.contains(word)) &&
+    checkWord(word) &&
+    t.isWord(word)
+    ) {
       words.add(word);
       currWord = new Word();
       //System.out.println("word [" + word + "] found");
@@ -177,10 +194,27 @@ public class Boggle{
     return robotWords;
   }
   
-  public void buildRobotWords(int times){
-    for (Robot r: robots){
-      for (int i = 0; i < times; i++){
-        r.buildWord();
+  // Will call the buildRobotWords for the integer right above or below the float
+  // The closer the float is to its lower or upper bound, the more likely that number will be called
+  public void buildRobotWords(float[] numTimes){
+    int[] intTimes = new int[numTimes.length];
+    for (int i = 0; i < numTimes.length; i++){
+      float times = numTimes[i];
+      int lowerNum = (int)times;
+      if (Math.random() > (times - lowerNum)){
+        intTimes[i] = lowerNum;
+      }
+      else {
+        intTimes[i] = (lowerNum + 1);
+      }
+    }
+    buildRobotWords(intTimes);
+  }
+  
+  public void buildRobotWords(int[] times){
+    for (int i = 0; i < times.length; i++){
+      for (int j = 0; j < times[i]; j++){
+        robots[i].buildWord();
       }
     }
   }

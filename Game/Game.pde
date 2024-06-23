@@ -4,28 +4,34 @@ import java.io.*;
 Boggle b;
 Display d;
 
+// Changeable parameters
+// ------------------------------------
+//int numRobots = 2;
+float[] robotDifficulties = {1, 1, 1};
+int numRobots = robotDifficulties.length;
+int boardSize = 5;
+int time = 180; // in seconds
+String playerDictionary = "words.txt";
+String robotDictionary = "words_scrabble.txt";
+// --------------------------------------
+
 void setup(){
   size(1400, 800);
   background(255);
-  rectMode(CENTER);
-  textAlign(CENTER);
   frameRate(30);
+  textSize(15);
   
-  b = new Boggle(5, 2);
+  b = new Boggle(boardSize, numRobots, time, playerDictionary, robotDictionary);
   d = new Display(b);
-  b.setupGame();
-  
-  d.drawBoard();
 }
 
 void draw(){
   if (frameCount % 30 == 0) {
-    b.buildRobotWords(1); // robot is making its words
+    b.buildRobotWords(robotDifficulties); // robot is making its words
     b.decrementTime();
     if (b.time == 0) {
       int[] finalScores = b.endGame();
-      float robotXToStart = d.displayGame("", true);
-      d.displayRobotWords(b.getRobotWords(), robotXToStart);
+      d.displayGame("", true);
       d.displayScores(finalScores);
       noLoop();
     }
