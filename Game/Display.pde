@@ -16,13 +16,12 @@ public class Display{
     textSize = 20;
   }
   
-  public float displayGame(String word, boolean isGameOver){
+  public void displayGame(String word, boolean isGameOver){
     background(255);
     drawBoard();
     displayWord(word);
-    float x = displayWords(isGameOver);
+    displayWords(isGameOver);
     displayTime();
-    return x;
   }
   
   public float[] bToPCoords(int row, int col){
@@ -58,19 +57,19 @@ public class Display{
     return null;
   }
   
-  public float displayWords(boolean isGameOver){
+  public void displayWords(boolean isGameOver){
     ArrayList<String> words = b.words;
     textSize(textSize);
     textAlign(LEFT);
     boolean strikeThrough = false;
     int currWord = 0;
-    float x = x0 + squareSize * boardSize;
+    float x = x0 + squareSize * (boardSize+1);
     
     text("Player 1", x, textSize + 5);
     while (currWord < words.size()){
       float longestWord = textWidth("Player 1");
-      float y = 2 * textSize+20;//y0 - squareSize;
-      while (currWord < words.size() && y < height){
+      float y = 2*textSize + 20;//y0 - squareSize;
+      while (currWord < words.size()){
         if (textWidth(words.get(currWord)) > longestWord){
           longestWord = textWidth(words.get(currWord));
         }
@@ -79,11 +78,19 @@ public class Display{
         displayText(words.get(currWord), strikeThrough, x, y, textSize);
         y += (textSize+5);
         currWord++;
+        
+        if (y >= (height - 10)){
+          y = 2*textSize + 20;
+          x += longestWord + 10;
+        }
       }
       x += longestWord + 10;
     }
     textAlign(CENTER);
-    return x;
+    
+    if (isGameOver){
+      displayRobotWords(b.getRobotWords(), x);
+    }
   }
   
   public void displayText(String display, boolean toStrikeThrough, float xStart, float yStart, int fontSize){
@@ -140,7 +147,7 @@ public class Display{
       for (int j = 0; j < boardSize; j++){
         float[] coords = bToPCoords(i, j);
         char currChar = board[i][j];
-        text(currChar + "", coords[0], coords[1] + squareSize / 4);
+        text(currChar + "", coords[0] + squareSize / 2, coords[1] + 3 * squareSize / 4);
       }
     }
   }
@@ -161,14 +168,20 @@ public class Display{
       while (currWord < words.size()){
         float longestWord = textWidth("Robot " + (i + 1));
         float y = 2 * textSize+20;//y0 - squareSize;
-        while (currWord < words.size() && y < height){
+        while (currWord < words.size()){
           if (textWidth(words.get(currWord)) > longestWord){
             longestWord = textWidth(words.get(currWord));
           }
           strikeThrough = ! b.robots[i].uniqueWords[currWord];
           displayText(words.get(currWord), strikeThrough, x, y, textSize);
+          //print("should display" + words.get(currWord));
           y += (textSize+5);
           currWord++;
+          
+          if (y >= (height - 10)){
+            y = 2*textSize + 20;
+            x += longestWord + 10;
+          }
         }
         x += longestWord + 10;
       }
